@@ -25,7 +25,7 @@ public class LinkService {
         var isStop = false;
         var counter = 0;
         while (true) {
-            System.out.println("Print login, logout, create, delete, stop, goto");
+            System.out.println("Print login, logout, create, delete, stop, goto, update");
             try {
                 String command = scanner.nextLine();
                 String[] commandParts = command.split(" ");
@@ -49,6 +49,8 @@ public class LinkService {
                     case "goto":
                         gotoLink(commandParts[1]);
                         break;
+                    case "update":
+                        update(commandParts[1], Integer.parseInt(commandParts[2]));
 
                 }
             }
@@ -64,6 +66,14 @@ public class LinkService {
                 counter = 0;
             }
         }
+    }
+
+    private void update(String commandPart, int i) {
+        if (currentUser == null) {
+            System.out.println("You are not logged in");
+            return;
+        }
+        linkStorage.updateLink(commandPart, currentUser, i);
     }
 
     private void login(String id) {
