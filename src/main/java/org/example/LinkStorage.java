@@ -24,6 +24,9 @@ public class LinkStorage {
     }
 
     public void addLink(String longLink, UUID userId, int maxTransferCount) {
+        if (userLinks.get(userId) == null) {
+            userLinks.put(userId, new HashSet<>());
+        }
         var shortLink = longShortLinks.get(longLink);
         var userHasLink = false;
         maxTransferCount = Math.min(maxTransferCount, Settings.maxTransferCount);
