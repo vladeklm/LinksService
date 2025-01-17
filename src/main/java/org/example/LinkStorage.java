@@ -105,13 +105,15 @@ public class LinkStorage {
     }
 
     public void linkControlExpired() {
-        for (var value : userLinks.values()) {
-            for (var link : value) {
+        for (var entry : userLinks.entrySet()) {
+            for (var link : entry.getValue()) {
                 var currentLinkData = linkData.get(link);
                 checkLinkData(currentLinkData);
                 if (currentLinkData.getMessage() != null) {
-                    deleteLink(link, null);
-            };
+                    deleteLink(link, entry.getKey());
+                }
+                ;
+            }
         }
     }
 }
