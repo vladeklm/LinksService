@@ -46,6 +46,7 @@ public class LinkService {
                         isStop = true;
                         break;
                     case "goto":
+                        gotoLink(commandParts[1]);
                         break;
 
                 }
@@ -73,8 +74,8 @@ public class LinkService {
             System.out.println("You are not logged in");
             return;
         }
-        linkStorage.addLink(link, currentUser, maxTransferCount);
-
+        var shortLink = linkStorage.addLink(link, currentUser, maxTransferCount);
+        System.out.println("Short link: " + shortLink);
     }
 
     private void delete(String link) {

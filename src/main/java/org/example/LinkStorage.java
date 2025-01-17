@@ -23,7 +23,7 @@ public class LinkStorage {
         return baseUrl + "/" + id;
     }
 
-    public void addLink(String longLink, UUID userId, int maxTransferCount) {
+    public String addLink(String longLink, UUID userId, int maxTransferCount) {
         if (userLinks.get(userId) == null) {
             userLinks.put(userId, new HashSet<>());
         }
@@ -37,9 +37,11 @@ public class LinkStorage {
                 deleteLink(shortLink, userId);
                 var newLinkData = linkData.get(shortLink);
                 newLinkData.setMaxTransferCount(maxTransferCount);
-                shortLongLinks.put(newShortLink, shortLink);
+                shortLongLinks.put(newShortLink, longLink);
+                longShortLinks.put(longLink, newShortLink);
                 userLinks.get(userId).add(newShortLink);
                 linkData.put(newShortLink, newLinkData);
+                shortLink = newShortLink;
             }
         }
 
@@ -47,10 +49,12 @@ public class LinkStorage {
             shortLink = createShortLink(Settings.baseUrl);
             maxTransferCount = Math.min(maxTransferCount, Settings.maxTransferCount);
             var currentLinkData = new LinkData(maxTransferCount);
-            shortLongLinks.put(shortLink, shortLink);
+            shortLongLinks.put(shortLink, longLink);
+            longShortLinks.put(longLink, shortLink);
             userLinks.get(userId).add(shortLink);
             linkData.put(shortLink, currentLinkData);
         }
+        return shortLink;
     }
 
     public String getLongLink(String shortLink, UUID userId) {
