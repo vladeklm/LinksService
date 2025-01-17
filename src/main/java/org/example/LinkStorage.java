@@ -61,12 +61,22 @@ public class LinkStorage {
         var userHasLink = userLinks.get(userId).contains(shortLink);
         if (userHasLink) {
             var currentLinkData = linkData.get(shortLink);
+            checkLinkData(currentLinkData);
             if (currentLinkData.getMessage() != null) {
                 throw new RuntimeException(currentLinkData.getMessage());
             }
             return shortLongLinks.get(shortLink);
         }
         return null;
+    }
+
+    private void checkLinkData(LinkData currentLinkData) {
+        if (!currentLinkData.isTransferCountOk()) {
+            currentLinkData.setMessage("Max transfer count reached");
+        }
+        if(! currentLinkData.isCreatedOnDateOk()) {
+            currentLinkData.setMessage("Link is expired");
+        }
     }
 
     public void deleteLink(String shortLink, UUID userId) {

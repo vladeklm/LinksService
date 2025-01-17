@@ -23,4 +23,16 @@ public class LinkData {
     public String getMessage() {
         return message;
     }
+
+    public boolean isTransferCountOk() {
+        return actualtransferCount < maxTransferCount;
+    }
+
+    public void setMessage(String msg) {
+        this.message = msg;
+    }
+
+    public boolean isCreatedOnDateOk() {
+        return createdOn.isAfter(LocalDateTime.now().minusSeconds(Settings.timeToLiveInSeconds));
+    }
 }
