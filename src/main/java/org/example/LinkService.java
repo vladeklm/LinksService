@@ -6,14 +6,17 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.Scanner;
 import java.util.UUID;
 
 public class LinkService {
     private UUID currentUser;
     private LinkStorage linkStorage;
+    private Scanner scanner;
 
     public LinkService() {
         linkStorage = new LinkStorage();
+        scanner = new Scanner(System.in);
     }
 
     public void start() {
@@ -23,11 +26,12 @@ public class LinkService {
         while (true) {
             System.out.println("Print login, logout, create, delete, stop, goto");
             try {
-                String command = System.console().readLine();
+                String command = scanner.nextLine();
                 String[] commandParts = command.split(" ");
                 switch (commandParts[0]) {
                     case "login":
-                        login(commandParts[1]);
+                        var id = commandParts.length > 1 ? commandParts[1] : null;
+                        login(id);
                         break;
                     case "logout":
                         logout();
@@ -57,6 +61,7 @@ public class LinkService {
 
     private void login(String id) {
         currentUser = id != null ? UUID.fromString(id) : UUID.randomUUID();
+        System.out.println("You are logged in as " + currentUser);
     }
 
     private void logout() {
