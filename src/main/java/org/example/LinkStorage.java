@@ -68,6 +68,7 @@ public class LinkStorage {
             if (currentLinkData.getMessage() != null) {
                 throw new RuntimeException(currentLinkData.getMessage());
             }
+            currentLinkData.incrementsTransferCount();
             return shortLongLinks.get(shortLink);
         }
         return null;
@@ -101,5 +102,9 @@ public class LinkStorage {
             var currentLinkData = linkData.get(shortLink);
             currentLinkData.setMaxTransferCount(maxTransferCount);
         }
+    }
+
+    public void linkControlExpired(String shortLink, UUID userId) {
+
     }
 }

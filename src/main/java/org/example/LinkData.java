@@ -35,4 +35,8 @@ public class LinkData {
     public boolean isCreatedOnDateOk() {
         return createdOn.isAfter(LocalDateTime.now().minusSeconds(Settings.timeToLiveInSeconds));
     }
+
+    public void incrementsTransferCount() {
+        actualtransferCount++;
+    }
 }
