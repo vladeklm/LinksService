@@ -54,7 +54,9 @@ public class LinkStorage {
         var userHasLink = userLinks.get(userId).contains(shortLink);
         if (userHasLink) {
             var currentLinkData = linkData.get(shortLink);
-            if (currentLinkData.)
+            if (currentLinkData.getMessage() != null) {
+                throw new RuntimeException(currentLinkData.getMessage());
+            }
             return shortLongLinks.get(shortLink);
         }
         return null;

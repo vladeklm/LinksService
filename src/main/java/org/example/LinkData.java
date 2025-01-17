@@ -12,7 +12,7 @@ public class LinkData {
         this.maxTransferCount = maxTransferCount;
         this.createdOn = LocalDateTime.now();
         this.actualtransferCount = 0;
-        this.Message = null;
+        this.message = null;
     }
 
 

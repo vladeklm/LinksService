@@ -15,9 +15,31 @@ public class LinkService {
     }
 
     public void start() {
+        loadSettings();
         System.out.println("LinkService started");
         while (true) {
             System.out.println("Print login, logout, create, delete, stop, goto");
+            try {
+                String command = System.console().readLine();
+                String[] commandParts = command.split(" ");
+                switch (commandParts[0]) {
+                    case "login":
+                        login(commandParts[1]);
+                        break;
+                    case "logout":
+                        logout();
+                        break;
+                    case "create":
+                        break;
+                    case "delete":
+                        break;
+                    case "stop":
+                        break;
+                    case "goto":
+                        break;
+
+                }
+            }
         }
     }
 
@@ -59,3 +81,4 @@ public class LinkService {
 
     }
 }
+
