@@ -1,6 +1,8 @@
 package org.example;
 
 import java.awt.*;
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -78,7 +80,27 @@ public class LinkService {
     }
 
     private void loadSettings() {
-
+        try (BufferedReader reader = new BufferedReader(new FileReader("./Settings.txt"))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] lineParts = line.split(" ");
+                switch (lineParts[0]) {
+                    case "baseUrl":
+                        Settings.baseUrl = lineParts[1];
+                        break;
+                    case "maxTransferCount":
+                        Settings.maxTransferCount = Integer.parseInt(lineParts[1]);
+                        break;
+                    case "timeToLiveInSeconds":
+                        Settings.timeToLiveInSeconds = Integer.parseInt(lineParts[1]);
+                        break;
+                    default:
+                        System.out.println("Unknown setting: " + lineParts[0]);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
 
