@@ -86,7 +86,7 @@ public class LinkStorage {
     public void deleteLink(String shortLink, UUID userId) {
         var userHasLink = userLinks.get(userId).contains(shortLink);
         if (userHasLink) {
-            userLinks.get(userId).remove(shortLink);
+            //userLinks.get(userId).remove(shortLink);
             var longLink = shortLongLinks.get(shortLink);
             longShortLinks.remove(longLink);
             shortLongLinks.remove(shortLink);
@@ -104,7 +104,14 @@ public class LinkStorage {
         }
     }
 
-    public void linkControlExpired(String shortLink, UUID userId) {
-
+    public void linkControlExpired() {
+        for (var value : userLinks.values()) {
+            for (var link : value) {
+                var currentLinkData = linkData.get(link);
+                checkLinkData(currentLinkData);
+                if (currentLinkData.getMessage() != null) {
+                    deleteLink(link, null);
+            };
+        }
     }
 }
