@@ -19,6 +19,7 @@ public class LinkService {
     public void start() {
         loadSettings();
         System.out.println("LinkService started");
+        var isStop = false;
         while (true) {
             System.out.println("Print login, logout, create, delete, stop, goto");
             try {
@@ -32,15 +33,24 @@ public class LinkService {
                         logout();
                         break;
                     case "create":
+                        create(commandParts[1], Integer.parseInt(commandParts[2]));
                         break;
                     case "delete":
+                        delete(commandParts[1]);
                         break;
                     case "stop":
+                        isStop = true;
                         break;
                     case "goto":
                         break;
 
                 }
+            }
+            catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+            if (isStop) {
+                break;
             }
         }
     }
