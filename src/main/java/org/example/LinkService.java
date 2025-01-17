@@ -22,19 +22,40 @@ public class LinkService {
     }
 
     private void login(String id) {
+        currentUser = id != null ? UUID.fromString(id) : UUID.randomUUID();
     }
 
     private void logout() {
+        currentUser = null;
     }
 
-    private void create() {
+    private void create(String link, int maxTransferCount) {
+        if (currentUser == null) {
+            System.out.println("You are not logged in");
+            return;
+        }
+        linkStorage.addLink(link, currentUser, maxTransferCount);
 
     }
 
-    private void delete() {
-
+    private void delete(String link) {
+        if (currentUser == null) {
+            System.out.println("You are not logged in");
+            return;
+        }
+        linkStorage.deleteLink(link, currentUser);
     }
 
     private  void gotoLink(String link) throws URISyntaxException, IOException {
+        if (currentUser == null) {
+            System.out.println("You are not logged in");
+            return;
+        }
+        var longLink = linkStorage.getLongLink(link, currentUser);
+        Desktop.getDesktop().browse(new URI(longLink));
+    }
+
+    private void loadSettings() {
+
     }
 }
