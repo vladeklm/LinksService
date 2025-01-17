@@ -24,8 +24,14 @@ public class LinkService {
         System.out.println("LinkService started");
         var isStop = false;
         var counter = 0;
+        System.out.println("Print login %id% to enter, if %id% is empty, sysmet create new");
+        System.out.println("Print logout to logout");
+        System.out.println("Print create %fullLink% %maxTransferCount% to create new link");
+        System.out.println("Print delete %shortLink% to delete link");
+        System.out.println("Print stop to stop service");
+        System.out.println("Print goto %shortLink% to go to link");
+        System.out.println("Print update %shortLink% %maxTransferCount% to update link");
         while (true) {
-            System.out.println("Print login, logout, create, delete, stop, goto, update");
             try {
                 String command = scanner.nextLine();
                 String[] commandParts = command.split(" ");
@@ -51,6 +57,9 @@ public class LinkService {
                         break;
                     case "update":
                         update(commandParts[1], Integer.parseInt(commandParts[2]));
+                        break;
+                    default:
+                        System.out.println("Unknown command");
 
                 }
             }
