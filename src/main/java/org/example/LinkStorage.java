@@ -112,7 +112,6 @@ public class LinkStorage {
                 if (currentLinkData.getMessage() != null) {
                     deleteLink(link, entry.getKey());
                 }
-                ;
             }
         }
     }

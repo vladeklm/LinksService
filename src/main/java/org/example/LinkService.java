@@ -23,6 +23,7 @@ public class LinkService {
         loadSettings();
         System.out.println("LinkService started");
         var isStop = false;
+        var counter = 0;
         while (true) {
             System.out.println("Print login, logout, create, delete, stop, goto");
             try {
@@ -56,6 +57,11 @@ public class LinkService {
             }
             if (isStop) {
                 break;
+            }
+            counter++;
+            if (counter >= 10) {
+                linkStorage.linkControlExpired();
+                counter = 0;
             }
         }
     }
