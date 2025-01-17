@@ -89,6 +89,9 @@ public class LinkStorage {
             var longLink = shortLongLinks.get(shortLink);
             longShortLinks.remove(longLink);
             shortLongLinks.remove(shortLink);
+            var currentLinkData = linkData.get(shortLink);
+            currentLinkData.setMessage(currentLinkData.getMessage() == null ?
+                    "Link deleted" : currentLinkData.getMessage() + " Link deleted");
         }
     }
 
