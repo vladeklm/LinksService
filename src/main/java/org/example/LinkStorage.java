@@ -47,7 +47,6 @@ public class LinkStorage {
 
         if (shortLink == null || !userHasLink) {
             shortLink = createShortLink(Settings.baseUrl);
-            maxTransferCount = Math.min(maxTransferCount, Settings.maxTransferCount);
             var currentLinkData = new LinkData(maxTransferCount);
             shortLongLinks.put(shortLink, longLink);
             longShortLinks.put(longLink, shortLink);
@@ -58,7 +57,11 @@ public class LinkStorage {
     }
 
     public String getLongLink(String shortLink, UUID userId) {
-        var userHasLink = userLinks.get(userId).contains(shortLink);
+        var links = userLinks.get(userId);
+        if (links == null) {
+            return null;
+        }
+        var userHasLink = links.contains(shortLink);
         if (userHasLink) {
             var currentLinkData = linkData.get(shortLink);
             checkLinkData(currentLinkData);

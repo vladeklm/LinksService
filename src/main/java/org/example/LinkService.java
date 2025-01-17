@@ -92,6 +92,10 @@ public class LinkService {
             return;
         }
         var longLink = linkStorage.getLongLink(link, currentUser);
+        if (longLink == null) {
+            System.out.println("Link not found");
+            return;
+        }
         Desktop.getDesktop().browse(new URI(longLink));
     }
 
